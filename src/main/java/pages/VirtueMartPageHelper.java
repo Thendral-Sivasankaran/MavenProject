@@ -21,7 +21,6 @@ import basePage.BasePage;
 public class VirtueMartPageHelper extends BasePage {
 	public static String webSiteTitle = "Welcome to VirtueMart 3 Sample store";
 	public static String cowBoyHatPrice = "12,00 €";
-
 	public VirtueMartPageHelper() {
 		super();
 		PageFactory.initElements(driver, this);
@@ -109,6 +108,7 @@ public class VirtueMartPageHelper extends BasePage {
 		String title = driver.getTitle();
 		System.out.println(title);
 		return title;
+		
 	}
 
 	public void loginIntoTheApplication() throws Exception {
@@ -121,8 +121,7 @@ public class VirtueMartPageHelper extends BasePage {
 		password.sendKeys(pwd);
 		ApplicationUtilityMethods.getScrollByElements(logIn);
 		logIn.click();
-
-	}
+     }
 
 	public static String greetingMessage() throws Exception {
 		System.out.println(greetingMessage.getText());
@@ -159,12 +158,12 @@ public class VirtueMartPageHelper extends BasePage {
 		ApplicationUtilityMethods.getScrollByElements(cartItemTable);
 		List<WebElement> trCount = driver.findElements(By.tagName("tr"));
 		System.out.println(trCount.size());
-		for (int i = 4; i < trCount.size(); i++) {
+		for (int i = 4; i==4; i++) {
 			List<WebElement> tdCount = trCount.get(i).findElements(By.tagName("td"));
 			System.out.println("First TR Contains: " + tdCount.size());
 
 			// Fetch text from individual '<td>' tags
-			for (int j = 0; j < tdCount.size(); j++) {
+			int j=0;
 				System.out.println(tdCount.get(j).getText().length());
 				int strlen = tdCount.get(j).getText().length();
 				if (strlen==59) {
@@ -172,16 +171,21 @@ public class VirtueMartPageHelper extends BasePage {
 					ApplicationUtilityMethods.getScrollByElements(productTotalPrice);
 					
 					if (productTotalPrice.getText().equals(cowBoyHatPrice)) {
+						System.out.println("#########################1if");
 						ApplicationUtilityMethods.getScrollByElements(termsAndConditionsCheckBox);
+						TimeUnit.SECONDS.sleep(2);
 						termsAndConditionsCheckBox.click();
-						checkOutNow.click();
+						break;
 					} 
 					
 					else {
+						System.out.println("###########1else##############");
 						WebElement productQuantity = driver.findElement(By.xpath(
 								"(//input[@class='quantity-input js-recalculate'and @name='quantity[" + j + "]'])"));
 						ApplicationUtilityMethods.getScrollByElements(productQuantity);
-						if (productQuantity.getText() == "2") {
+						System.out.println(productQuantity.getAttribute("value"));
+						if (productQuantity.getAttribute("value").equals("2")) {
+							System.out.println("###########2if##############");
 							productQuantity.click();
 							productQuantity.clear();
 							productQuantity.sendKeys("1");
@@ -189,9 +193,13 @@ public class VirtueMartPageHelper extends BasePage {
 									By.xpath("(//button[@class='vmicon vm2-add_quantity_cart'and @name='updatecart." + j
 											+ "'])"));
 							updateQuantityInCart.click();
-							if (productTotalPrice.getText() == cowBoyHatPrice) {
+							ApplicationUtilityMethods.getScrollByElements(productTotalPrice);
+							if (productTotalPrice.getText().equals(cowBoyHatPrice)) {
+								System.out.println("###########3if##############");
 								ApplicationUtilityMethods.getScrollByElements(termsAndConditionsCheckBox);
+								TimeUnit.SECONDS.sleep(2);
 								termsAndConditionsCheckBox.click();
+								break;
 							}
 						}
 					}
@@ -202,28 +210,36 @@ public class VirtueMartPageHelper extends BasePage {
 					WebElement deleteExtraItem = driver.findElement(By.xpath("(//button[@name='delete." + j + "'])"));
 					deleteExtraItem.click();
 					ApplicationUtilityMethods.getScrollByElements(cartItemTable);
-					TimeUnit.SECONDS.sleep(1);
-					if (strlen==59) {
 						ApplicationUtilityMethods.getScrollByElements(productTotalPrice);
-						if (productTotalPrice.getText() == cowBoyHatPrice) {
+						
+						if (productTotalPrice.getText().equals(cowBoyHatPrice)) {
+							System.out.println("*************************1if");
 							ApplicationUtilityMethods.getScrollByElements(termsAndConditionsCheckBox);
+							TimeUnit.SECONDS.sleep(2);
 							termsAndConditionsCheckBox.click();
-							checkOutNow.click();
-						} else {
-							WebElement productQuantity = driver.findElement(
-									By.xpath("(//input[@class='quantity-input js-recalculate'and @name='quantity[" + j
-											+ "]'])"));
-							if (productQuantity.getText() == "2") {
+							break;
+						}else {
+							System.out.println("****************1else**************");
+							WebElement productQuantity = driver.findElement(By.xpath(
+									"(//input[@class='quantity-input js-recalculate'and @name='quantity[" + j + "]'])"));
+							ApplicationUtilityMethods.getScrollByElements(productQuantity);
+							System.out.println(productQuantity.getAttribute("value"));
+							if (productQuantity.getAttribute("value").equals("2")) {
+								System.out.println("***************2if***************");
 								productQuantity.click();
 								productQuantity.clear();
 								productQuantity.sendKeys("1");
 								WebElement updateQuantityInCart = driver.findElement(
-										By.xpath("(//button[@class='vmicon vm2-add_quantity_cart'and @name='updatecart."
-												+ j + "'])"));
+										By.xpath("(//button[@class='vmicon vm2-add_quantity_cart'and @name='updatecart." + j
+												+ "'])"));
 								updateQuantityInCart.click();
-								if (productTotalPrice.getText() == cowBoyHatPrice) {
+								ApplicationUtilityMethods.getScrollByElements(productTotalPrice);
+								if (productTotalPrice.getText().equals(cowBoyHatPrice)) {
+									System.out.println("*************3if***************");
 									ApplicationUtilityMethods.getScrollByElements(termsAndConditionsCheckBox);
+									TimeUnit.SECONDS.sleep(2);
 									termsAndConditionsCheckBox.click();
+									break;
 								}
 							}
 						}
@@ -232,34 +248,32 @@ public class VirtueMartPageHelper extends BasePage {
 				}
 			}
 
-		}
+		
 
-	}
-
-	public static String verifyTotal() throws Exception {
-		ApplicationUtilityMethods.getScrollByElements(productTotalPrice);
-		String totalAmount = productTotalPrice.getText();
-		System.out.println(totalAmount);
-		return totalAmount;
-	}
-
-	public void clickOnTermsAndConditions() throws Exception {
-		ApplicationUtilityMethods.getScrollByElements(termsAndConditionsCheckBox);
-		termsAndConditionsCheckBox.click();
-
-	}
 
 	public void checkOutNow() throws Exception {
+		TimeUnit.SECONDS.sleep(3);
 		ApplicationUtilityMethods.getScrollByElements(checkOutNow);
+		if(checkOutNow.getAttribute("name").equals("confirm")) {
+		TimeUnit.SECONDS.sleep(1);
+		System.out.println(checkOutNow.getAttribute("name"));
 		checkOutNow.click();
+		TimeUnit.SECONDS.sleep(3);
+		verifyMessage();
+		}
+		else {
+			TimeUnit.SECONDS.sleep(1);
+			System.out.println(checkOutNow.getAttribute("name"));
+			checkOutNow.click();
+		}
 	}
 
-	public static String verifyMessage() throws Exception {
+	public void verifyMessage() throws Exception {
 		String message = thankyouMessage.getText();
-		System.out.println(message);
-		return message;
-
-	}
+		if(message.equals("Thank you for your order!")) {
+			System.out.println("Got Thank You Message");
+		}
+     }
 
 	public void logOut() throws Exception {
 

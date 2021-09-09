@@ -124,9 +124,7 @@ public class ApplicationUtilityMethods extends BasePage
 		}
 	}
 	
-	  public void tearDown() {
-    driver.quit();
-  }
+
 	
 	
 	

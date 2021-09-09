@@ -39,20 +39,9 @@ public class VirtueMartTestScript extends BasePage
 			
 			virtueMart.addProductToCart();
 			
-			Assert.assertEquals("Total Price Is Not Matched",VirtueMartPageHelper.cowBoyHatPrice
-					,VirtueMartPageHelper.verifyTotal()
-					);
-			
-			virtueMart.clickOnTermsAndConditions();
-			
-//			virtueMart.checkProductDetails();
+			virtueMart.checkProductDetails();
 			
 			virtueMart.checkOutNow();
-			
-//			assertt.assertEquals("Message Is Not Matched","Thank you for your order!"
-//			,VirtueMartPageHelper.verifyMessage());
-			
-			
 			
 			virtueMart.logOut();
 			

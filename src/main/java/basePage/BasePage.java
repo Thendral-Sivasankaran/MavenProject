@@ -2,17 +2,22 @@ package basePage;
 
 
 import java.util.concurrent.TimeUnit;
-//import org.junit.After;
+
+import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BasePage
 {
-
 	public static WebDriver driver= new ChromeDriver();
+	
+	
 	
 	public static void getURL(String url) throws Exception
 	{
+	   
 		driver.get(url);
 		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 		
@@ -25,11 +30,10 @@ public class BasePage
 		
 	}
 
-	
-//	  @After
-//	  public void tearDown() {
-//	    driver.quit();
-//	  }
+	@After
+	  public void tearDown() {
+	    driver.quit();
+	  }
 	
 }
 
