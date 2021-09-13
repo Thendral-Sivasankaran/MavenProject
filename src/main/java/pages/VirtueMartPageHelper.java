@@ -5,12 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-//import java.util.ArrayList;
-//import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
-//import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -24,6 +20,7 @@ public class VirtueMartPageHelper extends BasePage {
 	public VirtueMartPageHelper() {
 		super();
 		PageFactory.initElements(driver, this);
+		
 	}
 
 	@FindBy(xpath = "(//div[@class='accept'])")
@@ -62,20 +59,8 @@ public class VirtueMartPageHelper extends BasePage {
 	@FindBy(xpath = "(//table[@class='cart-summary ui-sortable'])")
 	private WebElement cartItemTable;
 
-//	@FindBy(xpath="(//tr[@class='sectiontableentry1'])//a[text()='Cowboy Hat']")
-//	private  WebElement productList;
-//	
-//	@FindBy(xpath="(//span[@class='PricediscountedPriceWithoutTax'])")
-//	private  WebElement productPrice;
-
-//	@FindBy(xpath="(//input[@class='quantity-input js-recalculate'and @name='quantity[0]'])")
-//	private  WebElement productQuantity;
-
 	@FindBy(xpath = "(//span[@class='PricebillTotal'])")
 	private static WebElement productTotalPrice;
-
-//	@FindBy(xpath="(//button[@class='vmicon vm2-add_quantity_cart'and @name='updatecart.0'])")
-//	private  WebElement updateQuantityInCart;
 
 	@FindBy(xpath = "(//input[@id='tos'])")
 	private WebElement termsAndConditionsCheckBox;
@@ -112,6 +97,7 @@ public class VirtueMartPageHelper extends BasePage {
 	}
 
 	public void loginIntoTheApplication() throws Exception {
+		PageFactory.initElements(driver, this);
 		String userID = readproperty("userID");
 		String pwd =readproperty("password");
 		iUnderStandButton.click();
@@ -253,6 +239,12 @@ public class VirtueMartPageHelper extends BasePage {
 
 	public void checkOutNow() throws Exception {
 		TimeUnit.SECONDS.sleep(3);
+		if(termsAndConditionsCheckBox.isSelected()) {
+			System.out.println(termsAndConditionsCheckBox.isSelected());
+			}else {
+			System.out.println(termsAndConditionsCheckBox.isSelected());
+			termsAndConditionsCheckBox.click();
+		}
 		ApplicationUtilityMethods.getScrollByElements(checkOutNow);
 		if(checkOutNow.getAttribute("name").equals("confirm")) {
 		TimeUnit.SECONDS.sleep(1);
@@ -271,7 +263,7 @@ public class VirtueMartPageHelper extends BasePage {
 	public void verifyMessage() throws Exception {
 		String message = thankyouMessage.getText();
 		if(message.equals("Thank you for your order!")) {
-			System.out.println("Got Thank You Message");
+			System.out.println(message);
 		}
      }
 

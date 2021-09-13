@@ -13,7 +13,7 @@ public class VirtueMartTestScript extends BasePage
 
 
 	 
-	  VirtueMartPageHelper virtueMart = new VirtueMartPageHelper();
+	VirtueMartPageHelper virtueMart = new VirtueMartPageHelper();
 
 
     @Test
